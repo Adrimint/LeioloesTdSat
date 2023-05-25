@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProdutosDAO {
@@ -50,8 +51,32 @@ public class ProdutosDAO {
     }
     
     public ArrayList<ProdutosDTO> listarProdutos(){
+            conn = new conectaDAO().connectDB();
+            String Sql = "Select * from produtos" ;
+        try {
+                    prep = conn.prepareStatement(Sql);
+                    
+                    resultset = prep.executeQuery();            
+                    
+                    
+                    while (resultset.next()) { //.next retorna verdadeiro caso exista uma próxima posição dentro do array
+                        ProdutosDTO produtos = new ProdutosDTO();
+                        
+                        produtos.setId(resultset.getInt("id"));
+                        produtos.setNome(resultset.getString("nome"));
+                        produtos.setValor(resultset.getInt("valor"));
+                        produtos.setStatus(resultset.getString("status"));
+                        
+                        listagem.add(produtos);    
+                    }
+                    return listagem;
+                } catch (Exception e) {
+                    return null;
+                }
         
-        return listagem;
+     
+        
+        
     }
     
     public boolean valia(int teste){
