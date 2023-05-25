@@ -23,20 +23,26 @@ public class ProdutosDAO {
     PreparedStatement prep;
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
-    
+    int num;
+    boolean val;
     public int cadastrarProduto (ProdutosDTO produto){
          conn = new conectaDAO().connectDB();
          int status;
-        try{
+          try{
             prep = conn.prepareStatement("INSERT INTO produtos(nome, valor, status) VALUES (?,?,?)");
             prep.setString(1,produto.getNome());
             // isso pra colocar coisa no telas 
             prep.setInt(2, produto.getValor());
             prep.setString(3, produto.getStatus());
             status = prep.executeUpdate();
+             num = 1;
+             val = valia(num);
             return status;
+            
         }catch(SQLException ex){
              System.out.println("Erro ao conectar: " + ex.getMessage());
+             num = 0;
+             val = valia(num);
              return ex.getErrorCode();
         }
         
@@ -47,6 +53,17 @@ public class ProdutosDAO {
         
         return listagem;
     }
+    
+    public boolean valia(int teste){
+        if(teste == 1){
+            return true;
+            
+        }else{
+            return false;
+        }
+            
+    }
+        
     
     public void desconectar(){
         try {

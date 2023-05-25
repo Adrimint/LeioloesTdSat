@@ -158,8 +158,16 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setStatus(status);
         // pronto 
         
+        
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+        boolean valo = produtodao.val;
+        if(valo == false){
+              JOptionPane.showMessageDialog(null,"Erro de conexão");
+            }else{ JOptionPane.showMessageDialog(null, "Produto inserido com sucesso");
+            LimpaCampos();
+        }
+        
         
              
             
@@ -183,26 +191,7 @@ public class cadastroVIEW extends javax.swing.JFrame {
              produto.setStatus(status);
              */
              
-            //conecta ao banco de dados
-           /*
-            status = produtodao.conectar();
-            if(status == false){
-                JOptionPane.showMessageDialog(null,"Erro de conexão");
-            }else{
-                resposta = dao.cadastrar(filme);
-                if(resposta == 1){
-                    JOptionPane.showMessageDialog(null,"Dados incluidos com sucesso");
-                    // chama o método limpa campos, que limpa os campos
-                     LimpaCampos();
-                    //posicionar o cursor para um próximo
-                    TxtNome.requestFocus();
-                }else if (resposta ==1062){
-                    JOptionPane.showMessageDialog(null,"Filme já foi cadastrado");   
-                }else{
-                    JOptionPane.showMessageDialog(null,"Erro ao tentar inserir dados");
-                }
-                }
-            */
+            
     
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
