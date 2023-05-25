@@ -12,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.Connection;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 
@@ -22,10 +24,21 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem = new ArrayList<>();
     
-    public void cadastrarProduto (ProdutosDTO produto){
-        
-        
-        //conn = new conectaDAO().connectDB();
+    public int cadastrarProduto (ProdutosDTO produto){
+         conn = new conectaDAO().connectDB();
+         int status;
+        try{
+            prep = conn.prepareStatement("INSERT INTO produtos(nome, valor, status) VALUES (?,?,?)");
+            prep.setString(1,produto.getNome());
+            // isso pra colocar coisa no telas 
+            prep.setInt(2, produto.getValor());
+            prep.setString(3, produto.getStatus());
+            status = prep.executeUpdate();
+            return status;
+        }catch(SQLException ex){
+             System.out.println("Erro ao conectar: " + ex.getMessage());
+             return ex.getErrorCode();
+        }
         
         
     }
@@ -33,6 +46,14 @@ public class ProdutosDAO {
     public ArrayList<ProdutosDTO> listarProdutos(){
         
         return listagem;
+    }
+    
+    public void desconectar(){
+        try {
+            conn.close();
+        } catch (SQLException ex) {
+            // deixando vazio para evitar erros 
+        }
     }
     
     

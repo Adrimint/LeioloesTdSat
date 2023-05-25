@@ -1,3 +1,6 @@
+
+import javax.swing.JOptionPane;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -134,6 +137,12 @@ public class cadastroVIEW extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    public void LimpaCampos(){
+         cadastroNome.setText("");
+         cadastroValor.setText("");
+         
+     }
+    
     private void cadastroNomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroNomeActionPerformed
         
         
@@ -147,9 +156,54 @@ public class cadastroVIEW extends javax.swing.JFrame {
         produto.setNome(nome);
         produto.setValor(Integer.parseInt(valor));
         produto.setStatus(status);
+        // pronto 
         
         ProdutosDAO produtodao = new ProdutosDAO();
         produtodao.cadastrarProduto(produto);
+        
+             
+            
+        /*  
+            int resposta;
+          // procura e validação de erros 
+          boolean palavra =  nome.matches("[a-zA-Z0-9\s]+");
+          boolean palavra2 = valor.matches("^\\d+$");
+   
+       
+         if(nome.isEmpty()|| valor.isEmpty()) {
+             JOptionPane.showMessageDialog(null, "todos os campos devem ser preenchidos");
+         }else if(palavra == false){
+             JOptionPane.showMessageDialog(null, "insira no campo nome somente letras");
+         }else if(palavra2 == false){
+             JOptionPane.showMessageDialog(null, "insira no campo somente números");
+          }else {
+             //variável recebe valores inseridos pelo usuário
+             produto.setNome(nome);
+             produto.setValor(Integer.parseInt(valor));
+             produto.setStatus(status);
+             */
+             
+            //conecta ao banco de dados
+           /*
+            status = produtodao.conectar();
+            if(status == false){
+                JOptionPane.showMessageDialog(null,"Erro de conexão");
+            }else{
+                resposta = dao.cadastrar(filme);
+                if(resposta == 1){
+                    JOptionPane.showMessageDialog(null,"Dados incluidos com sucesso");
+                    // chama o método limpa campos, que limpa os campos
+                     LimpaCampos();
+                    //posicionar o cursor para um próximo
+                    TxtNome.requestFocus();
+                }else if (resposta ==1062){
+                    JOptionPane.showMessageDialog(null,"Filme já foi cadastrado");   
+                }else{
+                    JOptionPane.showMessageDialog(null,"Erro ao tentar inserir dados");
+                }
+                }
+            */
+    
         
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
