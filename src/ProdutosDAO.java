@@ -85,13 +85,14 @@ public class ProdutosDAO {
             
     }
     
-    public int atualizar(ProdutosDTO produto){
+    public int atualizar(int Id){
         int status;
         conn = new conectaDAO().connectDB();
         try{
-            prep = conn.prepareStatement("update produtos set status = vendido");
+            prep = conn.prepareStatement("update produtos set status = ? where id = ?");
             // adicionar variavel ou validar se variavel está vazio ou não, para assim fazer com que ocorra a atualização
-            //prep.setString(1, "Vendido"); 
+            prep.setString(1, "vendido");
+            prep.setInt(2, Id); 
             status = prep.executeUpdate();
             return status;
                     
