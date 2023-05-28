@@ -73,11 +73,7 @@ public class ProdutosDAO {
                 } catch (Exception e) {
                     return null;
                 }
-        
-     
-        
-        
-    }
+        }
     
     public boolean valia(int teste){
         if(teste == 1){
@@ -93,7 +89,7 @@ public class ProdutosDAO {
         int status;
         conn = new conectaDAO().connectDB();
         try{
-            prep = conn.prepareStatement("update produtos set status = Vendido");
+            prep = conn.prepareStatement("update produtos set status = vendido");
             // adicionar variavel ou validar se variavel está vazio ou não, para assim fazer com que ocorra a atualização
             //prep.setString(1, "Vendido"); 
             status = prep.executeUpdate();
@@ -104,6 +100,31 @@ public class ProdutosDAO {
              return ex.getErrorCode();
         }
     }
+    
+     public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+            conn = new conectaDAO().connectDB();
+            String Sql = "Select * from produtos where status = vendido" ;
+        try {
+                    prep = conn.prepareStatement(Sql);
+                    
+                    resultset = prep.executeQuery();            
+                    
+                    
+                    while (resultset.next()) { //.next retorna verdadeiro caso exista uma próxima posição dentro do array
+                        ProdutosDTO produtos = new ProdutosDTO();
+                        
+                        produtos.setId(resultset.getInt("id"));
+                        produtos.setNome(resultset.getString("nome"));
+                        produtos.setValor(resultset.getInt("valor"));
+                        produtos.setStatus(resultset.getString("status"));
+                        
+                        listagem.add(produtos);    
+                    }
+                    return listagem;
+                } catch (Exception e) {
+                    return null;
+                }
+        }
         
     
     public void desconectar(){
