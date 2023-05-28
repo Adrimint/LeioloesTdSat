@@ -88,6 +88,22 @@ public class ProdutosDAO {
         }
             
     }
+    
+    public int atualizar(ProdutosDTO produto){
+        int status;
+        conn = new conectaDAO().connectDB();
+        try{
+            prep = conn.prepareStatement("update produtos set status = Vendido");
+            // adicionar variavel ou validar se variavel está vazio ou não, para assim fazer com que ocorra a atualização
+            //prep.setString(1, "Vendido"); 
+            status = prep.executeUpdate();
+            return status;
+                    
+        }catch(SQLException ex){
+             System.out.println( "Erro no acesso ao Bando de Dados : "+ ex.getMessage());
+             return ex.getErrorCode();
+        }
+    }
         
     
     public void desconectar(){
