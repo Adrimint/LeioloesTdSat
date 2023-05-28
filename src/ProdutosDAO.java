@@ -102,19 +102,20 @@ public class ProdutosDAO {
         }
     }
     
-     public ArrayList<ProdutosDTO> listarProdutosVendidos(){
+     public ArrayList<ProdutosDTO> listarProdutosVendidos(String status){
             conn = new conectaDAO().connectDB();
-            String Sql = "Select * from produtos where status = vendido" ;
+           
+            String Sql = "Select * from produtos where status like ?" ;
         try {
                     prep = conn.prepareStatement(Sql);
-                    
+                    prep.setString(1,"%" + status + "%");
                     resultset = prep.executeQuery();            
-                    
+                    // List<ProdutosDTO> listaProdutos = new ArrayList<>();
                     
                     while (resultset.next()) { //.next retorna verdadeiro caso exista uma próxima posição dentro do array
                         ProdutosDTO produtos = new ProdutosDTO();
                         
-                        produtos.setId(resultset.getInt("id"));
+                            produtos.setId(resultset.getInt("id"));
                         produtos.setNome(resultset.getString("nome"));
                         produtos.setValor(resultset.getInt("valor"));
                         produtos.setStatus(resultset.getString("status"));
